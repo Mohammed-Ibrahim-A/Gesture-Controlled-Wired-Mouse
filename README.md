@@ -1,47 +1,65 @@
 # Gesture-Controlled Wired Mouse
 
 ## Overview
-A gesture-based mouse system that uses an ESP32-C3 and MPU6050 motion sensor to translate hand movements into computer cursor control.
+An embedded human-computer interaction project that uses an ESP32-C3 and MPU6050 motion sensor to control computer cursor movement through wrist gestures over a wired USB-serial connection.
 
 ## Hardware Components
 - ESP32-C3
 - MPU6050 motion sensor
-- Push buttons
+- Two push buttons
 - Connecting wires
 - USB cable
 
 ## Technologies Used
-- Arduino IDE
-- Embedded C++
+- Arduino IDE and Embedded C++
+- Python
 - I²C communication
-- Motion sensing
+- USB Serial Communication
 
 ## System Workflow
-
 ```text
-Hand Movement
+Wrist Gestures
       ↓
 MPU6050 Motion Sensing
       ↓
-ESP32-C3 Data Processing
+ESP32-C3 Processing
       ↓
-Mouse Control Commands
+USB Serial Communication
       ↓
-Wired Communication
+Python Receiver (Windows)
       ↓
-Computer Cursor Control
+Computer Mouse Control
 ```
 
 ## Working Principle
-The MPU6050 measures hand movement and sends motion data to the ESP32-C3 through I²C. The microcontroller processes the readings and generates control commands for cursor movement and button operations. The computer receives these commands through the implemented wired interface.
+The MPU6050 measures wrist motion and communicates with the ESP32-C3 through I²C. The microcontroller processes the sensor data and sends mouse commands over USB serial. A Python receiver on Windows interprets these commands to control cursor movement and mouse actions.
 
 ## Key Features
 - Gesture-based cursor movement
-- Physical button controls
-- Wired computer connectivity
-- Motion-based interaction
+- Left and right click controls
+- Double-click to toggle scroll mode
+- Two-second button hold to toggle cursor lock
+- Motion calibration and direction setup
+
+## Installation and Usage
+1. Upload `gesture_mouse.ino` to the ESP32-C3 using Arduino IDE.
+2. Enable **USB CDC On Boot** in the board settings.
+3. Connect the ESP32-C3 to a Windows computer using USB.
+4. On first startup, open Serial Monitor at **115200 baud**, keep the device still during calibration, and follow the direction setup prompts.
+5. Close Serial Monitor.
+6. Install the Python dependency:
+
+   ```bash
+   pip install pyserial
+   ```
+
+7. Run the receiver:
+
+   ```bash
+   python mouse_receiver.py
+   ```
 
 ## Applications
 - Human-computer interaction
-- Embedded systems projects
+- Embedded systems development
 - Motion-controlled interfaces
